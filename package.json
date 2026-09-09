@@ -1,0 +1,13 @@
+{
+  "name": "argile-verte",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Projet Fullstack Argile Verte : Spring Boot, React, PostgreSQL",
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f"
+  }
+}
