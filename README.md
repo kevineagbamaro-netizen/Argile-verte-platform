@@ -6,4 +6,4 @@ Maison de soins naturels à l’argile verte. Boutique en français, prix en fra
 - Backend : Spring Boot 3, Java 17
 - Paiement : Moov Money, Mixx by Yas, à la livraison
 
-Voir [GUIDE.md](./GUIDE.md) pour l’installation.
+Voir [GUIDE.md](./GUIDE.md) pour l’installation. Sous Windows, lancez `start-backend.bat` pour l’API.

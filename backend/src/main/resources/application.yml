@@ -6,6 +6,8 @@ server:
 spring:
   application:
     name: argile-verte-backend
+  profiles:
+    active: local
 
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/argile_verte_db}

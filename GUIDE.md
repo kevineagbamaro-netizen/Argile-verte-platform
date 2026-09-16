@@ -4,26 +4,30 @@ Boutique de soins naturels à l’argile verte. Français, prix en franc CFA, li
 
 ## Installation
 
-Java 17+, Maven et Node.js 18+.
+Il faut **Java 17** et **Maven** (et Node.js 18 pour le site).
 
 ```bash
 git clone https://github.com/kevineagbamaro-netizen/Argile-verte-platform.git
 cd Argile-verte-platform
 ```
 
-### API
+### Windows — API
 
-```bash
+Double-clic sur `start-backend.bat`, ou dans un terminal :
+
+```bat
 cd backend
 mvn -DskipTests package
-java -jar target/argile-verte-backend-0.0.1-SNAPSHOT.jar --spring.profiles.active=local
+java -jar target\argile-verte-backend-0.0.1-SNAPSHOT.jar
 ```
 
-http://localhost:8080
+Ouvrir http://localhost:8080/api/health — vous devez voir `"status":"UP"`.
+
+Sans PostgreSQL : le projet utilise une base locale H2. Ne lancez pas `mvn spring-boot:run` si le dossier a un espace dans le nom ; utilisez `java -jar` comme ci-dessus.
 
 ### Site
 
-```bash
+```bat
 cd frontend
 npm install
 npm run dev
@@ -36,4 +40,4 @@ http://localhost:5173
 - Admin : `admin@argileverte.com` / `admin123`
 - Client : `client@argileverte.com` / `client123`
 
-L’administrateur gère le catalogue, les textes du site, WhatsApp, Moov Money et Mixx by Yas depuis **Administration**.
+L’administrateur gère le catalogue, les textes, WhatsApp, Moov Money et Mixx depuis **Administration**.
