@@ -14,6 +14,25 @@
   }
 }
 
+@layer components {
+  .field {
+    @apply w-full rounded-xl border border-clay-brown/15 bg-cream px-4 py-2.5 text-sm text-natural-text placeholder:text-natural-text/40 focus:outline-none focus:ring-2 focus:ring-clay-green/25 focus:border-clay-green/40;
+  }
+
+  .label {
+    @apply block text-[11px] uppercase tracking-[0.16em] text-clay-brown mb-1.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Respect des préférences de réduction de mouvement */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

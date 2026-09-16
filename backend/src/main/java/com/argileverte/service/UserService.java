@@ -18,9 +18,11 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, NotificationService notificationService) {
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     @Transactional(readOnly = true)
@@ -74,6 +76,12 @@ public class UserService {
         );
 
         user = userRepository.save(user);
+        notificationService.notify(
+                "CLIENT",
+                "Nouveau client",
+                user.getName() + " (" + user.getEmail() + ") vient de créer un compte",
+                "/admin"
+        );
 
         String token = "session-" + user.getId() + "-" + System.currentTimeMillis();
 

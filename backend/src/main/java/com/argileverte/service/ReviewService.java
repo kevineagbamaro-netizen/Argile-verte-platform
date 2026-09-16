@@ -17,10 +17,14 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;
+    private final NotificationService notificationService;
 
-    public ReviewService(ReviewRepository reviewRepository, ProductRepository productRepository) {
+    public ReviewService(ReviewRepository reviewRepository,
+                         ProductRepository productRepository,
+                         NotificationService notificationService) {
         this.reviewRepository = reviewRepository;
         this.productRepository = productRepository;
+        this.notificationService = notificationService;
     }
 
     @Transactional(readOnly = true)
@@ -41,7 +45,12 @@ public class ReviewService {
         product.setAverageRating(Math.round(avg * 10.0) / 10.0);
         product.setReviewCount(allReviews.size());
         productRepository.save(product);
-
+        notificationService.notify(
+                "AVIS",
+                "Nouvel avis sur « " + product.getName() + " »",
+                dto.getAuthorName() + " a noté " + dto.getRating() + "/5",
+                "/admin"
+        );
         return review;
     }
 }

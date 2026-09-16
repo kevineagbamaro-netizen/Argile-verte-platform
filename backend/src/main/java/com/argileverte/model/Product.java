@@ -1,5 +1,6 @@
 package com.argileverte.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -40,8 +41,26 @@ public class Product {
 
     private Integer reviewCount = 0;
 
+    private Integer likeCount = 0;
+
+    /** Si false, le produit n'apparaît pas dans la boutique (brouillon admin). */
+    @Column(nullable = false)
+    private Boolean published = true;
+
+    /** NONE, HIVER, LIQUIDATION, PUBLICITE */
+    @Column(length = 30)
+    private String campaign = "NONE";
+
+    /** NONE, GRANDE, BANNIERE */
+    @Column(length = 30)
+    private String spotlight = "NONE";
+
+    @Column(precision = 12, scale = 2)
+    private java.math.BigDecimal compareAtPrice;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderBy("createdAt DESC")
+    @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
@@ -51,9 +70,17 @@ public class Product {
         this.createdAt = LocalDateTime.now();
         this.averageRating = 5.0;
         this.reviewCount = 0;
+        this.likeCount = 0;
+        this.published = true;
+        this.campaign = "NONE";
+        this.spotlight = "NONE";
     }
 
     public Product(String name, String description, BigDecimal price, String category, String imageUrl, Integer stock, Boolean featured) {
+        this(name, description, price, category, imageUrl, stock, featured, true);
+    }
+
+    public Product(String name, String description, BigDecimal price, String category, String imageUrl, Integer stock, Boolean featured, Boolean published) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -61,8 +88,12 @@ public class Product {
         this.imageUrl = imageUrl;
         this.stock = stock;
         this.featured = featured;
+        this.published = published != null ? published : true;
         this.averageRating = 5.0;
         this.reviewCount = 0;
+        this.likeCount = 0;
+        this.campaign = "NONE";
+        this.spotlight = "NONE";
         this.createdAt = LocalDateTime.now();
     }
 
@@ -76,6 +107,18 @@ public class Product {
         }
         if (this.reviewCount == null) {
             this.reviewCount = 0;
+        }
+        if (this.likeCount == null) {
+            this.likeCount = 0;
+        }
+        if (this.published == null) {
+            this.published = true;
+        }
+        if (this.campaign == null) {
+            this.campaign = "NONE";
+        }
+        if (this.spotlight == null) {
+            this.spotlight = "NONE";
         }
     }
 
@@ -181,6 +224,46 @@ public class Product {
 
     public void setReviewCount(Integer reviewCount) {
         this.reviewCount = reviewCount;
+    }
+
+    public Integer getLikeCount() {
+        return likeCount != null ? likeCount : 0;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public Boolean getPublished() {
+        return published == null || published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
+
+    public String getCampaign() {
+        return campaign == null ? "NONE" : campaign;
+    }
+
+    public void setCampaign(String campaign) {
+        this.campaign = campaign;
+    }
+
+    public String getSpotlight() {
+        return spotlight == null ? "NONE" : spotlight;
+    }
+
+    public void setSpotlight(String spotlight) {
+        this.spotlight = spotlight;
+    }
+
+    public java.math.BigDecimal getCompareAtPrice() {
+        return compareAtPrice;
+    }
+
+    public void setCompareAtPrice(java.math.BigDecimal compareAtPrice) {
+        this.compareAtPrice = compareAtPrice;
     }
 
     public List<Review> getReviews() {

@@ -7,6 +7,7 @@ import com.argileverte.model.User;
 import com.argileverte.repository.ProductRepository;
 import com.argileverte.repository.ReviewRepository;
 import com.argileverte.repository.UserRepository;
+import com.argileverte.service.ShopSettingsService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,18 +21,21 @@ public class DataInitializer {
     @Bean
     CommandLineRunner initDatabase(ProductRepository productRepository,
                                    UserRepository userRepository,
-                                   ReviewRepository reviewRepository) {
+                                   ReviewRepository reviewRepository,
+                                   ShopSettingsService shopSettingsService) {
         return args -> {
+            shopSettingsService.ensureExists();
+
             // Comptes utilisateurs
             if (userRepository.count() == 0) {
                 User admin = new User("admin@argileverte.com", "admin123",
-                        "Administratrice Argile Verte", "+221 77 000 0001",
-                        "Dakar, Sénégal", Role.ROLE_ADMIN);
+                        "Administratrice Argile Verte", "+228 90 00 00 01",
+                        "Lomé, Togo", Role.ROLE_ADMIN);
                 userRepository.save(admin);
 
                 User client = new User("client@argileverte.com", "client123",
-                        "Client Démo", "+221 77 000 0002",
-                        "Abidjan, Côte d'Ivoire", Role.ROLE_USER);
+                        "Client Démo", "+228 90 00 00 02",
+                        "Agoè, Lomé, Togo", Role.ROLE_USER);
                 userRepository.save(client);
             }
 
@@ -99,12 +103,30 @@ public class DataInitializer {
                                 "Formule concentrée en argile verte, huile essentielle d'eucalyptus et de menthe poivrée pour soulager rapidement les douleurs musculaires et articulaires. Application directe par roll-on.",
                                 new BigDecimal("8900"),
                                 "Soins Corps",
-                                "https://images.unsplash.com/photo-1608248597-1329-4e87-afef-fb4c5dd71e5b?auto=format&fit=crop&w=600&q=80",
-                                20, true
+                                "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80",
+                                20, true, true
+                        ),
+                        new Product(
+                                "Cataplasme Articulations — Édition Harmattan (brouillon)",
+                                "Formule renforcée pour les articulations pendant la saison sèche. Ce produit est en brouillon : l'administrateur doit le publier pour qu'il apparaisse dans la boutique.",
+                                new BigDecimal("8200"),
+                                "Cataplasmes",
+                                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80",
+                                15, false, false
                         )
                 );
 
                 List<Product> savedProducts = productRepository.saveAll(products);
+
+                savedProducts.get(0).setSpotlight("GRANDE");
+                savedProducts.get(0).setCampaign("HIVER");
+                savedProducts.get(1).setCampaign("LIQUIDATION");
+                savedProducts.get(1).setCompareAtPrice(new BigDecimal("6500"));
+                savedProducts.get(5).setSpotlight("BANNIERE");
+                savedProducts.get(5).setCampaign("PUBLICITE");
+                savedProducts.get(6).setSpotlight("BANNIERE");
+                savedProducts.get(6).setCampaign("PUBLICITE");
+                productRepository.saveAll(savedProducts);
 
                 // Avis initiaux réalistes
                 Review r1 = new Review("Fatou Diallo", 5, "Excellent produit ! Mon mari l'utilise pour ses douleurs au dos et il dit que c'est le meilleur cataplasme qu'il ait jamais utilisé. Je recommande vraiment.", savedProducts.get(0));
@@ -130,6 +152,30 @@ public class DataInitializer {
                         p.setReviewCount(productReviews.size());
                         productRepository.save(p);
                     }
+                }
+            }
+
+            List<Product> existing = productRepository.findAll();
+            if (!existing.isEmpty() && existing.stream().noneMatch(p -> "GRANDE".equals(p.getSpotlight()))) {
+                Product first = existing.get(0);
+                first.setSpotlight("GRANDE");
+                first.setCampaign("HIVER");
+                productRepository.save(first);
+                if (existing.size() > 1) {
+                    Product second = existing.get(1);
+                    second.setCampaign("LIQUIDATION");
+                    second.setCompareAtPrice(second.getPrice().add(new BigDecimal("1500")));
+                    productRepository.save(second);
+                }
+                if (existing.size() > 5) {
+                    existing.get(5).setSpotlight("BANNIERE");
+                    existing.get(5).setCampaign("PUBLICITE");
+                    productRepository.save(existing.get(5));
+                }
+                if (existing.size() > 6) {
+                    existing.get(6).setSpotlight("BANNIERE");
+                    existing.get(6).setCampaign("PUBLICITE");
+                    productRepository.save(existing.get(6));
                 }
             }
         };

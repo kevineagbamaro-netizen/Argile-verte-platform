@@ -7,8 +7,13 @@ export interface Product {
   imageUrl?: string;
   stock: number;
   featured: boolean;
+  published?: boolean;
   averageRating: number;
   reviewCount: number;
+  likeCount?: number;
+  campaign?: string;
+  spotlight?: string;
+  compareAtPrice?: number | null;
   createdAt?: string;
 }
 
@@ -18,6 +23,12 @@ export interface Review {
   rating: number;
   comment: string;
   createdAt: string;
+}
+
+export interface LikeState {
+  productId: number;
+  likeCount: number;
+  liked: boolean;
 }
 
 export interface CartItem {
@@ -52,7 +63,7 @@ export interface OrderRequest {
   city: string;
   notes?: string;
   paymentMethod: string;
-  totalAmount: number;
+  totalAmount?: number;
   items: OrderItemDTO[];
 }
 
@@ -76,6 +87,69 @@ export interface Order {
   paymentMethod: string;
   totalAmount: number;
   status: string;
+  notes?: string;
   items: OrderItem[];
   createdAt: string;
+}
+
+export interface AdminNotification {
+  id: number;
+  type: string;
+  title: string;
+  message: string;
+  link?: string;
+  read: boolean;
+  createdAt: string;
+}
+
+export interface NotificationSummary {
+  unread: number;
+  items: AdminNotification[];
+}
+
+export interface ShopSettings {
+  id?: number;
+  shopName: string;
+  tagline?: string;
+  navbarTagline?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  whatsappNumber: string;
+  floozNumber: string;
+  mixxNumber: string;
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  heroImageUrl?: string;
+  bienfaitsEyebrow?: string;
+  bienfaitsTitle?: string;
+  bienfaitsIntro?: string;
+  bienfait1Title?: string;
+  bienfait1Text?: string;
+  bienfait2Title?: string;
+  bienfait2Text?: string;
+  bienfait3Title?: string;
+  bienfait3Text?: string;
+  footerBlurb?: string;
+}
+
+export interface ProductRequest {
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  imageUrl?: string;
+  stock: number;
+  featured: boolean;
+  published: boolean;
+  campaign?: string;
+  spotlight?: string;
+  compareAtPrice?: number | null;
+}
+
+export interface HealthResponse {
+  status: string;
+  service?: string;
+  timestamp?: string;
 }

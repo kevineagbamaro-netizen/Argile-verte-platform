@@ -41,6 +41,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- H2 pour lancer le projet en local sans Docker -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Validation Bean (JSR 380 / Jakarta Validation) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

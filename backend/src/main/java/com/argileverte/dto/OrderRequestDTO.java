@@ -24,9 +24,8 @@ public class OrderRequestDTO {
     private String notes;
 
     @NotBlank(message = "Le mode de paiement est obligatoire")
-    private String paymentMethod; // CASH_ON_DELIVERY, WAVE, ORANGE_MONEY, MTN_MONEY
+    private String paymentMethod;
 
-    @NotNull(message = "Le montant total est obligatoire")
     private BigDecimal totalAmount;
 
     @NotEmpty(message = "La commande doit contenir au moins un article")

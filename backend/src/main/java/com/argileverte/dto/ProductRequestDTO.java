@@ -24,6 +24,14 @@ public class ProductRequestDTO {
 
     private Boolean featured = false;
 
+    private Boolean published = true;
+
+    private String campaign = "NONE";
+
+    private String spotlight = "NONE";
+
+    private BigDecimal compareAtPrice;
+
     public ProductRequestDTO() {
     }
 
@@ -81,5 +89,37 @@ public class ProductRequestDTO {
 
     public void setFeatured(Boolean featured) {
         this.featured = featured;
+    }
+
+    public Boolean getPublished() {
+        return published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
+
+    public String getCampaign() {
+        return campaign;
+    }
+
+    public void setCampaign(String campaign) {
+        this.campaign = campaign;
+    }
+
+    public String getSpotlight() {
+        return spotlight;
+    }
+
+    public void setSpotlight(String spotlight) {
+        this.spotlight = spotlight;
+    }
+
+    public BigDecimal getCompareAtPrice() {
+        return compareAtPrice;
+    }
+
+    public void setCompareAtPrice(BigDecimal compareAtPrice) {
+        this.compareAtPrice = compareAtPrice;
     }
 }

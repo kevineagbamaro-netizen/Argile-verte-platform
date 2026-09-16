@@ -45,7 +45,7 @@ export const BackendStatusBadge: React.FC = () => {
         title="Cliquez pour réessayer la connexion au backend Spring Boot"
       >
         <AlertCircle className="w-3.5 h-3.5" />
-        <span>Spring Boot non démarré (:8080)</span>
+        <span>API non démarrée</span>
       </div>
     );
   }
@@ -53,7 +53,7 @@ export const BackendStatusBadge: React.FC = () => {
   return (
     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-      <span>Spring Boot & PostgreSQL Connectés</span>
+      <span>API connectée</span>
     </div>
   );
 };
