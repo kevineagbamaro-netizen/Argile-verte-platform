@@ -5,3 +5,6 @@ vendor/
 backend/data/
 backend/target/
 frontend/dist/
+AGENTS.md
+CLAUDE.md
+.cursor/

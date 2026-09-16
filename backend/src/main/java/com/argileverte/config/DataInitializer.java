@@ -34,7 +34,7 @@ public class DataInitializer {
                 userRepository.save(admin);
 
                 User client = new User("client@argileverte.com", "client123",
-                        "Client Démo", "+228 90 00 00 02",
+                        "Kossi Mensah", "+228 90 00 00 02",
                         "Agoè, Lomé, Togo", Role.ROLE_USER);
                 userRepository.save(client);
             }
