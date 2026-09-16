@@ -1,9 +1,8 @@
 # Argile Verte
 
-Maison de soins naturels à l’argile verte. Boutique en français, prix en franc CFA, livraison au Togo.
+Boutique de soins naturels à l’argile verte. Français, prix en franc CFA, livraison au Togo.
 
-- Frontend : React, Vite, TypeScript, Tailwind
-- Backend : Spring Boot 3, Java 17
-- Paiement : Moov Money, Mixx by Yas, à la livraison
+**Sur un nouvel ordinateur :** suivez uniquement [GUIDE.md](./GUIDE.md).
 
-Voir [GUIDE.md](./GUIDE.md) pour l’installation. Sous Windows, lancez `start-backend.bat` pour l’API.
+- Double-clic `start-backend.bat` → API
+- Double-clic `start-frontend.bat` → site http://localhost:5173
