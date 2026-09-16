@@ -52,7 +52,11 @@ start-backend.bat
 
 Ou double-clic sur `start-backend.bat`.
 
-La première fois : 5 à 10 minutes. Puis ouvrez http://localhost:8080/api/health — vous devez voir `"status":"UP"`.
+La première fois : 5 à 10 minutes. **Ne fermez pas** la fenêtre noire.
+
+Puis ouvrez http://localhost:8080/api/health — vous devez voir `"status":"UP"`.
+
+Si un message d’erreur apparaît : **ne cliquez pas tout de suite**. Lisez le texte. C’est souvent Java 17 manquant (installez Temurin 17, redémarrez, `git pull`, relancez). Un fichier `backend-erreur.log` est aussi créé dans le dossier du projet.
 
 **Fenêtre 2 — site**
 

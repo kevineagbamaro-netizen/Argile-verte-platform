@@ -4,6 +4,7 @@ vendor/
 *.log
 backend/data/
 backend/target/
+backend/.m2/
 frontend/dist/
 AGENTS.md
 CLAUDE.md
